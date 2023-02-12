@@ -1,0 +1,14 @@
+#!/bin/bash
+
+apt-get update
+apt-get install -y software-properties-common
+add-apt-repository --yes --update ppa:ansible/ansible
+apt-get install -y ansible
+
+cat <<- EOF > /etc/ansible/ansible.cfg
+[defaults]
+host_key_checking = no
+
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
+EOF

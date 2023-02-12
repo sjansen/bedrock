@@ -1,0 +1,7 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+config.vm.provider "parallels" do |vm, override|
+  prl.customize ["set", :id, "--startup-view", "headless"]
+  #prl.customize ["set", :id, "--startup-view", "window"]
+end

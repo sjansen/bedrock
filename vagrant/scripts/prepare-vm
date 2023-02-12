@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# purge snapd
+systemctl disable snapd.service
+systemctl disable snapd.socket
+systemctl disable snapd.seeded.service
+apt-get autoremove -y --purge snapd
+rm -rf /var/cache/snapd/
+
+# update system
+apt-get update
+apt-get install -y build-essential dkms libelf-dev linux-headers-generic
+apt-get dist-upgrade -y

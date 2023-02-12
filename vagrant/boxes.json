@@ -1,0 +1,14 @@
+{
+    "app": {
+        "controller": true,
+        "eth1": "192.168.42.6",
+        "forward": [80],
+        "cpus": "2",
+        "memory": "1024"
+    },
+    "svcs": {
+        "eth1": "192.168.42.9",
+        "cpus": "4",
+        "memory": "1024"
+    }
+}
