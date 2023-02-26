@@ -1,0 +1,47 @@
+---
+- name: Install Pre-requisites
+  become: yes
+  apt:
+    name:
+    - acl
+    - python3-psycopg2
+- name: Create PostgreSQL Database
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_db:
+    name: bedrock
+    encoding: UTF8
+- name: Create PostgreSQL User
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    name: django
+    password: badpass
+  environment:
+    PGOPTIONS: "-c password_encryption=scram-sha-256"
+- name: Grant PostgreSQL User CONNECT
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_privs:
+    type: database
+    db: bedrock
+    roles: django
+    privs: CONNECT
+- name: Grant PostgreSQL User SELECT,INSERT,UPDATE,DELETE
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_privs:
+    type: table
+    db: bedrock
+    roles: django
+    objs: ALL_IN_SCHEMA
+    privs: SELECT,INSERT,UPDATE,DELETE
+- name: Grant PostgreSQL User USAGE
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_privs:
+    type: sequence
+    db: bedrock
+    roles: django
+    objs: ALL_IN_SCHEMA
+    privs: USAGE

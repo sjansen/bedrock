@@ -1,0 +1,5 @@
+---
+collections:
+- name: community.postgresql
+  version: 2.3.2
+

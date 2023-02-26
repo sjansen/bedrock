@@ -1,0 +1,4 @@
+---
+- hosts: inf
+  roles:
+  - postgres-database

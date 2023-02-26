@@ -1,0 +1,5 @@
+---
+- name: Install PostgreSQL Service
+  become: yes
+  apt:
+    name: postgresql-client-15

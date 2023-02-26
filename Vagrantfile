@@ -39,13 +39,13 @@ Vagrant.configure("2") do |config|
   end
 
   boxes.each do |name, opts|
-    config.vm.define name do |config|
+    config.vm.define name, primary: opts[:default] do |config|
       config.vm.hostname = name
       config.vm.network "private_network", ip: opts[:eth1], :netmask => "255.255.255.0"
       config.vm.provision "hosts", sync_hosts: true
       config.vm.provision "prepare-vm", type: "shell", privileged: true, path: "vagrant/scripts/prepare-vm"
 
-      if opts[:controller]
+      if opts[:default]
         config.vm.provision "install-ansible", type: "shell", privileged: true, path: "vagrant/scripts/install-ansible"
         config.vm.provision "update-ansible-hosts", type: "shell", privileged: true, path: "vagrant/scripts/update-ansible-hosts", run: "always"
       end

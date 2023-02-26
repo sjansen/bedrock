@@ -1,0 +1,29 @@
+---
+- name: Install PostgreSQL Service
+  become: yes
+  apt:
+    name: postgresql-15
+    cache_valid_time: 86400
+    install_recommends: false
+- name: Configure PostgreSQL Service - pg_hba.conf
+  become: yes
+  copy:
+    src: pg_hba.conf
+    dest: /etc/postgresql/15/main/pg_hba.conf
+    owner: postgres
+    group: postgres
+    mode: "u=rw,g=r,o="
+  notify: "postgres-server : restart service"
+- name: Configure PostgreSQL Service - listen_addresses
+  become: yes
+  lineinfile:
+    dest: /etc/postgresql/15/main/postgresql.conf
+    regexp: "listen_addresses ="
+    line: "listen_addresses = '*'"
+  notify: "postgres-server : restart service"
+- name: Enable PostgreSQL Service
+  become: yes
+  service:
+    name: postgresql
+    enabled: true
+    state: started
