@@ -1,0 +1,26 @@
+package pages
+
+import "time"
+
+templ Page(title string) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<title>{ title }</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<link href="/public/default.css" rel="stylesheet"/>
+		</head>
+		<body>
+			<main class="m-4">
+				<h1 class="text-center font-bold text-5xl sm:text-6xl">{ title }</h1>
+				{ children... }
+			</main>
+			<footer class="fixed bottom-0 left-0 z-20 w-full border-t bg-white dark:bg-gray-700">
+				<div class="p-2 text-center w-full mx-auto text-sm text-gray-500 dark:text-gray-300">
+					{ time.Now().Truncate(time.Second).UTC().String() }
+				</div>
+			</footer>
+		</body>
+	</html>
+}

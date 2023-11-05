@@ -1,0 +1,15 @@
+# Directories
+/.idea/
+/.vagrant/
+/.vscode/
+/archive/
+/dist/
+
+# Files
+.DS_Store
+TODO
+
+# Patterns
+.*.sw[op]
+*.actual
+*_templ.go

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bedrock
+  labels:
+    app: bedrock
+spec:
+  selector:
+    matchLabels:
+      app: bedrock
+  template:
+    metadata:
+      labels:
+        app: bedrock
+    spec:
+      containers:
+      - name: bedrock
+        image: bedrock
+        env:
+        - name: BEDROCK_ENV
+          value: localdev
+        ports:
+        - containerPort: 8080
